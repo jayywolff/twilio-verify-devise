@@ -1,7 +1,6 @@
 # Migrate Authy to Twilio Verify API (for SMS and TOTP 2FA)
 
 ### This gem is meant to be a drop-in replacement for devise-authy in a Rails app (minus the following features)
-- Currently only support mobile phones with US country codes
 - Removed Onetouch support
 - Removed ability to request a phone call
 
@@ -26,7 +25,7 @@
 
   ```
 - you can also delete the `users.authy_id` column if you choose
-- Twilio Verify service sms will be sent to `users.mobile_phone`, so make sure you store the users 2fa phone number in this column, can make this field name dynamic in the future
+- Twilio Verify service sms will be sent to `users.mobile_phone`, so make sure you store the users 2fa phone number in this column in [e164 format](https://www.twilio.com/docs/glossary/what-e164), can make this field name dynamic in the future
 - Do a project code wide search & replace of these terms
   - `devise-authy` -> `devise-twilio-verify`
   - `authy_` -> `twilio_verify_`
