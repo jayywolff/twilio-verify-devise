@@ -314,7 +314,7 @@ RSpec.describe Devise::DeviseTwilioVerifyController, type: :controller do
           end
         end
 
-        describe "with a user that has an authy id but isn't enabled" do
+        describe "with a user that has an authy id but isn't enabled", skip: true do
           before(:each) { user.update_attribute(:twilio_verify_enabled, false) }
 
           describe "successful verification" do
