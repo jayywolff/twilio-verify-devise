@@ -34,7 +34,7 @@ class Devise::DeviseTwilioVerifyController < DeviseController
       verification_check = false
     end
 
-    # Hack to reproduce authy functionality of being able to verify 2FA via SMS or TOTP
+    # Reproduce authy functionality of being able to verify 2FA via SMS or TOTP
     # not ideal as there could be network delays, but there is currently no alternative
     if !verification_check && @resource.twilio_totp_factor_sid.present?
       verification_check = TwilioVerifyService.verify_totp_token(@resource, params[:token])
@@ -50,9 +50,14 @@ class Devise::DeviseTwilioVerifyController < DeviseController
       handle_invalid_token :verify_twilio_verify, :invalid_token
     end
   end
-  
+
   def GET_enable_twilio_verify
-    render :enable_twilio_verify  
+    if resource.twilio_verify_enabled?
+      set_flash_message(:notice, :already_enabled)
+      redirect_to after_twilio_verify_enabled_path_for(resource)
+    else
+      render :enable_twilio_verify
+    end
   end
 
   # enable 2fa
@@ -68,7 +73,13 @@ class Devise::DeviseTwilioVerifyController < DeviseController
   # Disable 2FA
   def POST_disable_twilio_verify
     resource.assign_attributes(twilio_verify_enabled: false)
-    resource.save(:validate => false)
+    if resource.save(validate: false)
+      forget_device
+      set_flash_message(:notice, :disabled)
+    else
+      set_flash_message(:error, :not_disabled)
+    end
+
     redirect_to after_twilio_verify_disabled_path_for(resource)
   end
 
