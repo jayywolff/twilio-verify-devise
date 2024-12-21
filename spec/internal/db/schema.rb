@@ -30,7 +30,6 @@ ActiveRecord::Schema.define do
 
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["authy_id"], name: "index_users_on_authy_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

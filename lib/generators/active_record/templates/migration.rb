@@ -5,8 +5,6 @@ class DeviseTwilioVerifyAddTo<%= table_name.camelize %> < ActiveRecord::Migratio
       t.datetime  :last_sign_in_with_twilio_verify
       t.boolean   :twilio_verify_enabled, :default => false
     end
-
-    add_index :<%= table_name %>, :authy_id
   end
 
   def self.down
