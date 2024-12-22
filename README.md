@@ -39,7 +39,7 @@
   - app/assets/stylesheets/devise_twilio_verify.scss
   - config/locales/devise.twilio_verify.en.yml
 
-# Twilio Verify Devise [![Build Status](https://github.com/twilio/authy-devise/workflows/build/badge.svg)](https://github.com/twilio/authy-devise/actions)
+# Twilio Verify Devise [![Build Status](https://github.com/jayywolff/twilio-verify-devise/workflows/build/badge.svg)](https://github.com/jayywolff/twilio-verify-devise/actions)
 
 This is a [Devise](https://github.com/heartcombo/devise) extension to add [Two-Factor Authentication with Twilio Verify](https://www.twilio.com/docs/verify) to your Rails application.
 
