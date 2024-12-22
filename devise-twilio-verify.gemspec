@@ -48,4 +48,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "factory_bot_rails", "~> 5.1.1"
   spec.add_development_dependency "mutex_m", "~> 0.3.0"
   spec.add_development_dependency "drb", "~> 2.2.1"
+  spec.add_development_dependency "observer", "~> 0.1.2"
 end
