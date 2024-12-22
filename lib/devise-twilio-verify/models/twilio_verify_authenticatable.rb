@@ -10,6 +10,8 @@ module Devise
 
       module ClassMethods
         def find_by_mobile_phone(mobile_phone)
+          return if mobile_phone.blank?
+
           where(mobile_phone: mobile_phone).first
         end
 

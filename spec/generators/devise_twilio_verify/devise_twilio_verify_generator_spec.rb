@@ -31,7 +31,7 @@ RSpec.describe DeviseTwilioVerify::Generators::DeviseTwilioVerifyGenerator, type
         directory "models" do
           file "user.rb" do
             contains "devise :twilio_verify_authenticatable"
-            contains "attr_accessible :last_sign_in_with_twilio_verify, :email"
+            contains "attr_accessible :authy_id, :last_sign_in_with_twilio_verify, :email"
           end
         end
       end

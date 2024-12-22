@@ -24,13 +24,13 @@ ActiveRecord::Schema.define do
     t.string "authy_id"
     t.datetime "last_sign_in_with_twilio_verify"
     t.boolean "twilio_verify_enabled", default: false
+    t.string "twilio_totp_factor_sid"
     # single table inheritance so we can have lockable users
     t.string "type"
     t.string "mobile_phone"
 
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["authy_id"], name: "index_users_on_authy_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
