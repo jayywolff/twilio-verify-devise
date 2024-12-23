@@ -37,6 +37,7 @@ gemfiles/*.lock
 .rvmrc
 
 **/*.sqlite
+**/*.sqlite-*
 **/*.log
 
 initializers/twilio_verify.rb
