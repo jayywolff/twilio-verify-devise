@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.version       = DeviseTwilioVerify::VERSION
   spec.authors       = ["Jay Wolff"]
 
-  spec.summary       = %q{Twilio Verify plugin to add two factor authentication to Devise.}
-  spec.description   = %q{Twilio Verify plugin to add two factor authentication to Devise. This gem is meant to make migrating from authy to twilio verify as simple as possible, please see the README for details.}
+  spec.summary       = %q{Devise-Twilio-Verify is a Devise extension that adds two-factor authentication (2FA) support using SMS and/or TOTP via the Twilio Verify API}
+  spec.description   = %q{The devise-twilio-verify gem integrates the Twilio Verify API with Twilio's two-factor authentication (2FA) capabilities with the popular Ruby on Rails authentication framework, Devise. This gem allows you to easily add phone number verification via SMS using Twilio to your Devise-powered application. It provides seamless integration for sending one-time passcodes (OTPs) to users' mobile phones and verifies them during sign-in or account registration. The gem supports customizable settings, ensuring a secure and user-friendly authentication experience by utilizing Twilio's reliable messaging infrastructure. This gem is meant to make migrating from authy to twilio verify as simple as possible, please see the README for details.}
   spec.homepage      = "https://github.com/jayywolff/twilio-verify-devise"
   spec.license       = "MIT"
 
