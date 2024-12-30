@@ -1,44 +1,3 @@
-# Migrate Authy to Twilio Verify API (for SMS and TOTP 2FA)
-
-### This gem is meant to be a drop-in replacement for devise-authy in a Rails app (minus the following features)
-- Currently only support mobile phones with US country codes
-- Removed Onetouch support
-- Removed ability to request a phone call
-
-### Just follow the steps below to migrate:
-- Swap out `devise-authy` in your Gemfile with `devise-twilio-verify`
-- `gem 'devise-twilio-verify'
-- Setup a Twilio Verify account
-- Add env vars and/or Rails credentials for:
-  - `TWILIO_AUTH_TOKEN`
-  - `TWILIO_ACCOUNT_SID`
-  - `TWILIO_VERIFY_SERVICE_SID`
-- Create/run a migration to rename  and add the following columns
-  ```ruby
-    class MigrateAuthyToTwilioVerify < ActiveRecord::Migration[6.1]
-      def change
-        rename_column :users, :authy_sms, :twilio_verify_sms
-        rename_column :users, :authy_enabled, :twilio_verify_enabled
-        rename_column :users, :last_sign_in_with_authy, :last_sign_in_with_twilio_verify
-        add_column :users, :twilio_totp_factor_sid, :string
-      end
-    end
-
-  ```
-- you can also delete the `users.authy_id` column if you choose
-- Twilio Verify service sms will be sent to `users.mobile_phone`, so make sure you store the users 2fa phone number in this column, can make this field name dynamic in the future
-- Do a project code wide search & replace of these terms
-  - `devise-authy` -> `devise-twilio-verify`
-  - `authy_` -> `twilio_verify_`
-  -  `_authy` -> `_twilio_verify`
-  -  `authy-` -> `twilio-verify-`
-  -  `-authy` -> `-twilio-verify`
-  -  `Authy` -> `TwilioVerify`
-- Do a project file search & replace of any file with authy in the name (here's a few examples to replace)
-  - app/javascript/src/deviseTwilioVerify.js
-  - app/assets/stylesheets/devise_twilio_verify.scss
-  - config/locales/devise.twilio_verify.en.yml
-
 # Twilio Verify Devise [![Build Status](https://github.com/jayywolff/twilio-verify-devise/workflows/build/badge.svg)](https://github.com/jayywolff/twilio-verify-devise/actions)
 
 This is a [Devise](https://github.com/heartcombo/devise) extension to add [Two-Factor Authentication with Twilio Verify](https://www.twilio.com/docs/verify) to your Rails application.
@@ -48,10 +7,9 @@ Please visit the Twilio Docs for more information:
 * [Verify + Ruby (Rails) quickstart](https://www.twilio.com/docs/verify/quickstarts/ruby-rails)
 * [Twilio Ruby helper library](https://www.twilio.com/docs/libraries/ruby)
 * [Verify API reference](https://www.twilio.com/docs/verify/api)
-
-
+* [Migrate Authy to Twilio Verify API](#migrate-authy-to-twilio-verify-api)
 * [Pre-requisites](#pre-requisites)
-* [Demo](#demo)
+* [Demo (TODO)](#demo)
 * [Getting started](#getting-started)
   * [Configuring Models](#configuring-models)
     * [With the generator](#with-the-generator)
@@ -246,7 +204,7 @@ This will display a QR code on the verification screen (you still need to take a
 
 In Rails 5 `protect_from_forgery` is no longer prepended to the `before_action` chain. If you call `authenticate_user` before `protect_from_forgery` your request will result in a "Can't verify CSRF token authenticity" error.
 
-To remedy this, add `prepend: true` to your `protect_from_forgery` call, like in this example from the [Twilio Verify Devise demo app](https://github.com/twilio/authy-devise-demo):
+To remedy this, add `prepend: true` to your `protect_from_forgery` call
 
 ```ruby
 class ApplicationController < ActionController::Base
@@ -261,6 +219,48 @@ Run the following command:
 ```bash
 $ bundle exec rspec
 ```
+
+## Migrate Authy to Twilio Verify API
+
+### This gem is meant to be a drop-in replacement for devise-authy in a Rails app (minus the following features)
+- Currently supports SMS and TOTP 2FA
+- Currently only support mobile phones with US country codes
+- Removed Onetouch support
+- Removed ability to request a phone call
+
+### Just follow the steps below to migrate:
+- Swap out `devise-authy` in your Gemfile with `devise-twilio-verify`
+- `gem 'devise-twilio-verify'
+- Setup a Twilio Verify account
+- Add env vars and/or Rails credentials for:
+  - `TWILIO_AUTH_TOKEN`
+  - `TWILIO_ACCOUNT_SID`
+  - `TWILIO_VERIFY_SERVICE_SID`
+- Create/run a migration to rename  and add the following columns
+  ```ruby
+    class MigrateAuthyToTwilioVerify < ActiveRecord::Migration[6.1]
+      def change
+        rename_column :users, :authy_sms, :twilio_verify_sms
+        rename_column :users, :authy_enabled, :twilio_verify_enabled
+        rename_column :users, :last_sign_in_with_authy, :last_sign_in_with_twilio_verify
+        add_column :users, :twilio_totp_factor_sid, :string
+      end
+    end
+
+  ```
+- you can also delete the `users.authy_id` column if you choose
+- Twilio Verify service sms will be sent to `users.mobile_phone`, so make sure you store the users 2fa phone number in this column, can make this field name dynamic in the future
+- Do a project code wide search & replace of these terms
+  - `devise-authy` -> `devise-twilio-verify`
+  - `authy_` -> `twilio_verify_`
+  -  `_authy` -> `_twilio_verify`
+  -  `authy-` -> `twilio-verify-`
+  -  `-authy` -> `-twilio-verify`
+  -  `Authy` -> `TwilioVerify`
+- Do a project file search & replace of any file with authy in the name (here's a few examples to replace)
+  - app/javascript/src/deviseTwilioVerify.js
+  - app/assets/stylesheets/devise_twilio_verify.scss
+  - config/locales/devise.twilio_verify.en.yml
 
 ## Copyright
 See LICENSE.txt for further details.
