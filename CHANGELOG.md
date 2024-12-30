@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2024-12-29
+
+### Changed
+
+- Added apprasials for testing against Rails 7 and Rails 7.1
+- Bump rspec-rails version from "~>4.0.0.beta3" to "~> 5.0.0" for Rails 5.2 and Rails 6 testing
+- Updated README to move the authy migration instructions a bit below the README gem introduction / instructions
+
 ## [0.2.0] - 2024-12-21
 
 ### Changed
