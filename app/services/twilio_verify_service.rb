@@ -47,7 +47,7 @@ class TwilioVerifyService
     @twilio_auth_token = Rails.application.credentials.twilio_auth_token || ENV['TWILIO_AUTH_TOKEN']
     @twilio_verify_service_sid = Rails.application.credentials.twilio_verify_service_sid || ENV['TWILIO_VERIFY_SERVICE_SID']
 
-    raise 'Missing Twilio credentials' unless @twilio_account_sid && @twilio_auth_token && @twilio_verify_service_sid
+    raise 'Missing Twilio credentials' if @twilio_account_sid.blank? || @twilio_auth_token.blank? || @twilio_verify_service_sid.blank?
 
     @twilio_client = Twilio::REST::Client.new(@twilio_account_sid, @twilio_auth_token)
   end
